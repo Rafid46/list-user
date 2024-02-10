@@ -5,23 +5,24 @@ const AddForm = () => {
   const onSubmit = (data) => {
     console.log(data);
     const taskData = {
-      email: user?.email,
-      name: data.name,
-      description: data.description,
-      priority: data.priority,
-      deadline: data.deadline,
-      status: "Todo",
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      address: data.address,
+      companyName: data.companyName,
+      avatar: data.avatar,
     };
-    fetch("https://dummyjson.com/users", {
+    fetch("https://dummyjson.com/users/add", {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "Content-type": "application/json",
       },
       body: JSON.stringify(taskData),
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.data);
+        alert("user added");
+        console.log(res);
       });
   };
 
@@ -37,45 +38,61 @@ const AddForm = () => {
                     <RxCross1 />
                   </button>
                 </form>
-                <label className="block text-sm font-medium text-white">
-                  Tasks title
+                <label className="block text-sm mb0 font-medium text-white">
+                  First name
                 </label>
                 <input
-                  {...register("name")}
+                  {...register("firstName")}
+                  type="text"
+                  className="mt-1 mb-5 w-60 p-4 py-2 border-2 rounded-md border-gray-200 bg-transparent text-sm text-gray-100 shadow-sm"
+                />
+                <label className="block text-sm font-medium text-white">
+                  Last name
+                </label>
+                <input
+                  {...register("lastName")}
                   type="text"
                   className="mt-1 w-60 p-4 py-2 border-2 rounded-md border-gray-200 bg-transparent text-sm text-gray-100 shadow-sm"
                 />
                 <label className="block text-sm font-medium text-white mt-5">
-                  Description
+                  Email
                 </label>
                 <input
-                  {...register("description")}
+                  {...register("email")}
                   type="text"
                   className="mt-1 w-60 p-4 py-2 border-2 rounded-md border-gray-200 bg-transparent text-sm text-gray-100 shadow-sm"
                 />
               </div>
               <label className="block text-sm font-medium text-white mt-2 mb-2">
-                Priority
+                Address
               </label>
               <input
-                {...register("description")}
+                {...register("address")}
                 type="text"
                 className="mt-1 w-60 p-4 py-2 border-2 rounded-md border-gray-200 bg-transparent text-sm text-gray-100 shadow-sm"
               />
               <label className="block text-sm font-medium text-white mt-5 mb-2">
-                Deadline
+                Company name
               </label>
               <input
-                {...register("description")}
+                {...register("companyName")}
+                type="text"
+                className="mt-1 w-60 p-4 py-2 border-2 rounded-md border-gray-200 bg-transparent text-sm text-gray-100 shadow-sm"
+              />
+              <label className="block text-sm font-medium text-white mt-5 mb-2">
+                Avatar
+              </label>
+              <input
+                {...register("avatar")}
                 type="text"
                 className="mt-1 w-60 p-4 py-2 border-2 rounded-md border-gray-200 bg-transparent text-sm text-gray-100 shadow-sm"
               />
               <br />
               <button
                 type="submit"
-                className="bg-purple-500 text-sm text-white px-4 py-2 rounded-full transition duration-200 ease-in-out hover:bg-purple-700 active:bg-purple-900 focus:outline-none"
+                className="mt-5 bg-gray-900 text-sm text-white px-4 py-2 rounded-full transition duration-200 ease-in-out hover:bg-purple-700 active:bg-purple-900 focus:outline-none"
               >
-                Create task
+                Add user
               </button>
             </form>
           </div>
