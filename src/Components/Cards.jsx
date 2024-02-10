@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
-
+import { MdOutlineEmail } from "react-icons/md";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { PiAddressBook, PiOfficeChairLight } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
+import AddForm from "./AddForm";
 const Cards = () => {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
+  const { id } = users;
   useEffect(() => {
     fetch("https://dummyjson.com/users")
       .then((res) => res.json())
@@ -13,89 +19,81 @@ const Cards = () => {
       });
     console.log(users);
   }, [users]);
+
+  const handlerDetails = (id) => {
+    navigate(`/details/${id}`);
+  };
+  console.log(id);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ml-[60px]">
       {users?.map((user) => (
         <div
           key={user.id}
-          className="w-80 bg-white px-6 pt-6 pb-2 rounded-xl transform hover:scale-105 transition duration-500"
+          className="border-[1px] w-72 bg-transparent px-4 py-4 rounded-lg"
         >
           {/* <h3 className="mb-3 text-xl font-bold text-indigo-600">
             Beginner Friendly
           </h3> */}
           <div className="relative">
-            <img className="w-full rounded-xl" src={user?.image} alt="Colors" />
+            <img
+              className="border-[1px] w-full rounded-md border-gray-300"
+              src={user?.image}
+              alt="Colors"
+            />
             {/* <p className="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
               FREE
             </p> */}
           </div>
-          <h1 className="mt-4 text-gray-800 text-2xl font-bold cursor-pointer">
-            Javascript Bootcamp for Absolute Beginners
+          <h1 className="mt-4 text-[#7F27FF] text-md font-semibold cursor-pointer">
+            {` ${user?.firstName} ${user?.lastName}`}
           </h1>
-          <div className="my-4">
-            <div className="flex space-x-1 items-center">
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-indigo-600 mb-1.5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </span>
-              <p>1:34:23 Minutes</p>
+          <div className="my-2">
+            <div className="mb-3">
+              <div className="flex space-x-1 items-center mb-1">
+                <span>
+                  <MdOutlineEmail className="text-blue-400" />
+                </span>
+                <p className="text-sm text-gray-400">{user?.email}</p>
+              </div>
+              <div className="flex space-x-1 items-center mb-1">
+                <span>
+                  <PiAddressBook />
+                </span>
+                <p className="text-sm text-gray-400">
+                  {user?.address?.address}
+                </p>
+              </div>
+              <div className="flex space-x-1 items-center mb-1">
+                <span>
+                  <PiOfficeChairLight />
+                </span>
+                <p className="text-sm text-gray-500">{user?.company?.name}</p>
+              </div>
             </div>
-            <div className="flex space-x-1 items-center">
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-indigo-600 mb-1.5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-              </span>
-              <p>3 Parts</p>
-            </div>
-            <div className="flex space-x-1 items-center">
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-indigo-600 mb-1.5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                  />
-                </svg>
-              </span>
-              <p>Vanilla JS</p>
-            </div>
-            <button className="mt-4 text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg">
-              Buy Lesson
+            <button
+              onClick={() => handlerDetails(user?.id)}
+              className="w-full text-sm bg-purple-500 text-white px-4 py-2 rounded-full transition duration-200 ease-in-out hover:bg-purple-700 active:bg-purple-900 focus:outline-none"
+            >
+              See details
             </button>
           </div>
         </div>
       ))}
+      <button
+        onClick={() => document.getElementById("my_modal_1").showModal()}
+        className="btn hover:text-gray-900 drawer-button rounded-full bg-purple-500 border-none z-50 rounded-tr-none rounded-br-none"
+        style={{
+          position: "fixed",
+          right: "0px",
+          bottom: "30px",
+        }}
+      >
+        <span className="text-3xl text-white">
+          <IoIosAddCircleOutline />
+        </span>
+        <p className=" text-white">create</p>
+      </button>
+      <AddForm></AddForm>
     </div>
   );
 };
