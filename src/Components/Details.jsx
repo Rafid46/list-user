@@ -21,9 +21,9 @@ const Details = () => {
           </div>
           <div className="w-full md:w-2/3 bg-white rounded-md mx-3 flex flex-col space-y-2 p-3">
             <div className="flex justify-between item-center">
-              <p className="text-gray-500 font-medium hidden md:block">
+              {/* <p className="text-gray-500 font-medium hidden md:block">
                 Vacations
-              </p>
+              </p> */}
               <div className="flex items-center">
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"

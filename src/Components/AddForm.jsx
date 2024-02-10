@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { RxCross1 } from "react-icons/rx";
+import Swal from "sweetalert2";
 const AddForm = () => {
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data) => {
@@ -21,7 +22,13 @@ const AddForm = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        alert("user added");
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "user added",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(res);
       });
   };
@@ -29,7 +36,7 @@ const AddForm = () => {
   return (
     <div>
       <dialog id="my_modal_1" className="modal">
-        <div className="modal-box shadow-lg backdrop-blur-sm bg-opacity-20 bg-white w-fit px-10 rounded-md">
+        <div className="shadow-lg backdrop-blur-sm bg-opacity-20 bg-white w-fit px-10 rounded-md">
           <div className="modal-action w-fit p-0 mx-auto">
             <form onSubmit={handleSubmit(onSubmit)} className="">
               <div className="mb-5">
@@ -90,7 +97,7 @@ const AddForm = () => {
               <br />
               <button
                 type="submit"
-                className="mt-5 bg-gray-900 text-sm text-white px-4 py-2 rounded-full transition duration-200 ease-in-out hover:bg-purple-700 active:bg-purple-900 focus:outline-none"
+                className="mt-5 mb-5 bg-gray-900 text-sm text-white px-4 py-2 rounded-full transition duration-200 ease-in-out hover:bg-purple-700 active:bg-purple-900 focus:outline-none"
               >
                 Add user
               </button>
